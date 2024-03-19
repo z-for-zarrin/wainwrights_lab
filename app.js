@@ -39,14 +39,22 @@ getAllWainwrights();
 
 // handling form input
 const filterForm = document.querySelector("#filter-form");
+const loadingMessage = document.querySelector("#loading-message");
 
+// form submission
 filterForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
     const userInput = evt.target[0].value;
     // console.log(userInput);
-    getFilteredWainwrights(userInput);
+    loadingMessage.innerText = "Loading results...";
+    setTimeout(() => {
+        loadingMessage.innerText = "";
+        getFilteredWainwrights(userInput);
+    }, 1000);
+    
 });
 
+// creating array of filtered results
 const filterWainwrights = (textInput) => {
     const textInputLower = textInput.toLowerCase();
     const filteredWainwrights = [];
@@ -71,6 +79,7 @@ const filterWainwrights = (textInput) => {
     return filteredWainwrights;
 }
 
+// outputting results onto page
 const getFilteredWainwrights = (textInput) => {
     wainwrightsList.innerText = "";
     filterWainwrights(textInput).forEach(createWainwright);
