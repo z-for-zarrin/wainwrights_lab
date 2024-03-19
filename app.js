@@ -51,10 +51,22 @@ const filterWainwrights = (textInput) => {
     const textInputLower = textInput.toLowerCase();
     const filteredWainwrights = [];
     wainwrightsData.forEach(element => {
+        // picking out wainwrights with matching names or area names
         nameLower = element.name.toLowerCase();
-        if(nameLower.includes(textInputLower)){
+        areaLower = element.area.areaName.toLowerCase();
+        if(nameLower.includes(textInputLower) ||
+           areaLower.includes(textInputLower)){
             filteredWainwrights.push(element);
         }
+
+        //picking out wainwrights with matching local towns
+        for(i = 0; i < element.area.localTowns.length; i++){
+            localTownLower = element.area.localTowns[i].toLowerCase();
+            if (localTownLower.includes(textInputLower)) {
+                filteredWainwrights.push(element);
+            }
+        }
+
     });
     return filteredWainwrights;
 }
