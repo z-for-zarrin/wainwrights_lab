@@ -1,6 +1,9 @@
+// create global variable for storing all API data
 var wainwrightsData = "";
+
 const wainwrightsList = document.querySelector("#wainwrights-list");
 
+// function that gets all Wainwrights and assigns them to local variable
 const getAllWainwrights = async () => {
     const response = await fetch("https://raw.githubusercontent.com/annahndr/annahndr.github.io/master/wainwrights_data/wainwrights.json");
     wainwrightsData = await response.json();
@@ -8,7 +11,8 @@ const getAllWainwrights = async () => {
     wainwrightsData.forEach(createWainwright);
 }
 
-const createWainwright = async (wainwright) => {
+// function that appends data to webpage
+const createWainwright = (wainwright) => {
     const newWainwrightName = document.createElement("h3")
     const newWainwrightData = document.createElement("ul");
     newWainwrightName.innerText = wainwright.name;
@@ -32,3 +36,13 @@ const createWainwright = async (wainwright) => {
 }
 
 getAllWainwrights();
+
+// handling form input
+const filterForm = document.querySelector("#filter-form");
+
+filterForm.addEventListener("submit", (evt) => {
+    evt.preventDefault();
+    const userInput = evt.target[0].value;
+    console.log(userInput);
+});
+
