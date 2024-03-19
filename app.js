@@ -1,3 +1,5 @@
+// GETTING ALL DATA ////
+
 // create global variable for storing all API data
 var wainwrightsData = "";
 
@@ -26,7 +28,7 @@ const createWainwright = (wainwright) => {
     heightFeet.innerText = `Height (ft): ${wainwright.heightFeet}`;
     areaName.innerText = `Area: ${wainwright.area.areaName}`;
     localTowns.innerText = `Local towns: ${wainwright.area.localTowns}`;
-
+    
     const data = Array(heightMetres, heightFeet, areaName, localTowns);
 
     data.forEach(element => newWainwrightData.appendChild(element));
@@ -37,7 +39,8 @@ const createWainwright = (wainwright) => {
 
 getAllWainwrights();
 
-// handling form input
+// FILTERING ////
+
 const filterForm = document.querySelector("#filter-form");
 const loadingMessage = document.querySelector("#loading-message");
 
@@ -85,3 +88,23 @@ const getFilteredWainwrights = (textInput) => {
     filterWainwrights(textInput).forEach(createWainwright);
 }
 
+// ERROR HANDLING ///
+
+const causeProblems = () => {
+    const response = fetch("https://raw.githubusercontent.com/annahndr/annahndr.github.io/master/wainwrights_data/wainwrights.jsong")
+    return response;
+}
+
+const problemButton = document.querySelector("#problem-button");
+
+problemButton.addEventListener("click", () => {
+    try {
+        badResponse = causeProblems();
+        console.log(badResponse);
+        if(!badResponse.ok){
+            throw new Error()               
+        }
+    } catch (e) {
+        window.alert("why would you do this")
+    }
+});
