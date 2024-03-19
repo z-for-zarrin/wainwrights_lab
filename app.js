@@ -43,6 +43,24 @@ const filterForm = document.querySelector("#filter-form");
 filterForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
     const userInput = evt.target[0].value;
-    console.log(userInput);
+    // console.log(userInput);
+    getFilteredWainwrights(userInput);
 });
+
+const filterWainwrights = (textInput) => {
+    const textInputLower = textInput.toLowerCase();
+    const filteredWainwrights = [];
+    wainwrightsData.forEach(element => {
+        nameLower = element.name.toLowerCase();
+        if(nameLower.includes(textInputLower)){
+            filteredWainwrights.push(element);
+        }
+    });
+    return filteredWainwrights;
+}
+
+const getFilteredWainwrights = (textInput) => {
+    wainwrightsList.innerText = "";
+    filterWainwrights(textInput).forEach(createWainwright);
+}
 
